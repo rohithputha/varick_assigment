@@ -1,6 +1,7 @@
 """
 Pass-through stubs for unimplemented pipeline stages.
-GL Classification, Prepaid/Accrual, Approval Routing, Posting.
+ApprovalRoutingRunner → pipeline/stages/approval_routing.py
+PostingRunner         → pipeline/stages/posting.py
 """
 from __future__ import annotations
 
@@ -28,21 +29,3 @@ class _PassThroughStub(StageRunner):
         }
 
 
-class GLClassificationRunner(_PassThroughStub):
-    def __init__(self) -> None:
-        super().__init__("GL_CLASSIFICATION")
-
-
-class PrepaidAccrualRunner(_PassThroughStub):
-    def __init__(self) -> None:
-        super().__init__("PREPAID_ACCRUAL")
-
-
-class ApprovalRoutingRunner(_PassThroughStub):
-    def __init__(self) -> None:
-        super().__init__("APPROVAL_ROUTING")
-
-
-class PostingRunner(_PassThroughStub):
-    def __init__(self) -> None:
-        super().__init__("POSTING")

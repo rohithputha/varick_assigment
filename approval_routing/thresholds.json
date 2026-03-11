@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "updated_at": "2026-03-11T00:00:00",
+  "thresholds": {
+    "auto_approve_max": 1000.00,
+    "dept_manager_max": 10000.00,
+    "marketing_max": 2500.00,
+    "engineering_max": 5000.00
+  },
+  "cloud_software_accounts": ["5010", "5020"]
+}

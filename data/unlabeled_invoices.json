@@ -1,0 +1,208 @@
+[
+  {
+    "raw_input": {
+      "invoice_id": "UL-1",
+      "vendor_name": "DataSync Pro",
+      "invoice_date": "2026-02-15",
+      "po_number": "PO-2026-077",
+      "department": "Engineering",
+      "total_amount": "24000.00",
+      "currency": "USD",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "Annual Platform License (Feb 2026 – Jan 2027)",
+          "amount": "18000.00"
+        },
+        {
+          "line_number": 2,
+          "description": "Premium Support & Implementation Services",
+          "amount": "6000.00"
+        }
+      ]
+    }
+  },
+
+  {
+    "raw_input": {
+      "invoice_id": "UL-2",
+      "vendor_name": "WeWork",
+      "invoice_date": "2026-03-01",
+      "po_number": "PO-2026-081",
+      "department": "Operations",
+      "total_amount": "4500.00",
+      "currency": "USD",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "Monthly hot desk membership – 15 seats, Mar 2026",
+          "amount": "4500.00"
+        }
+      ]
+    }
+  },
+
+  {
+    "raw_input": {
+      "invoice_id": "UL-3",
+      "vendor_name": "TalentBridge Partners",
+      "invoice_date": "2026-02-28",
+      "po_number": "PO-2026-090",
+      "department": "Engineering",
+      "total_amount": "25000.00",
+      "currency": "USD",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "Placement fee – Senior Software Engineer",
+          "amount": "25000.00"
+        }
+      ]
+    }
+  },
+
+  {
+    "raw_input": {
+      "invoice_id": "UL-4",
+      "vendor_name": "Global Tech Summit",
+      "invoice_date": "2026-03-05",
+      "po_number": "PO-2026-085",
+      "department": "Engineering",
+      "total_amount": "6800.00",
+      "currency": "USD",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "Conference registration – 2 attendees",
+          "amount": "3600.00"
+        },
+        {
+          "line_number": 2,
+          "description": "Flight + hotel – San Francisco, 3 nights",
+          "amount": "3200.00"
+        }
+      ]
+    }
+  },
+
+  {
+    "raw_input": {
+      "invoice_id": "UL-5",
+      "vendor_name": "RenewTech",
+      "invoice_date": "2026-03-10",
+      "po_number": "PO-2026-092",
+      "department": "Operations",
+      "total_amount": "4500.00",
+      "currency": "USD",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "Refurbished Dell 27\" monitors (10 units x $450)",
+          "quantity": 10,
+          "unit_cost": "450.00",
+          "amount": "4500.00"
+        }
+      ]
+    }
+  },
+
+  {
+    "raw_input": {
+      "invoice_id": "UL-6",
+      "vendor_name": "Cloudflare",
+      "invoice_date": "2026-01-10",
+      "po_number": "PO-2026-055",
+      "department": "Engineering",
+      "total_amount": "500.00",
+      "currency": "USD",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "Domain renewal – 1 year",
+          "amount": "200.00"
+        },
+        {
+          "line_number": 2,
+          "description": "SSL certificate – wildcard, 1 year",
+          "amount": "300.00"
+        }
+      ]
+    }
+  },
+
+  {
+    "raw_input": {
+      "invoice_id": "UL-7",
+      "vendor_name": "Sarah Chen Design LLC",
+      "invoice_date": "2026-02-20",
+      "po_number": "PO-2026-088",
+      "department": "Marketing",
+      "total_amount": "8000.00",
+      "currency": "USD",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "Brand identity redesign – logo, brand guidelines, and digital assets",
+          "amount": "8000.00"
+        }
+      ]
+    }
+  },
+
+  {
+    "raw_input": {
+      "invoice_id": "UL-8",
+      "vendor_name": "ModernSpace Builders",
+      "invoice_date": "2026-03-15",
+      "po_number": "PO-2026-095",
+      "department": "Operations",
+      "total_amount": "12000.00",
+      "currency": "USD",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "Open floor plan conversion – demolition & rebuild",
+          "amount": "12000.00"
+        }
+      ]
+    }
+  },
+
+  {
+    "raw_input": {
+      "invoice_id": "UL-9",
+      "vendor_name": "Twilio Inc.",
+      "invoice_date": "2026-02-28",
+      "po_number": "PO-2026-060",
+      "department": "Engineering",
+      "total_amount": "2300.00",
+      "currency": "USD",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "SMS API overage – Feb 2026 (usage-based)",
+          "amount": "2300.00"
+        }
+      ]
+    }
+  },
+
+  {
+    "raw_input": {
+      "invoice_id": "UL-10",
+      "vendor_name": "Fresh Bites Catering",
+      "invoice_date": "2026-03-08",
+      "po_number": "PO-2026-098",
+      "department": "Marketing",
+      "total_amount": "1500.00",
+      "currency": "USD",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "Catering – product launch celebration, 75 guests",
+          "amount": "1500.00"
+        }
+      ]
+    }
+  }
+]

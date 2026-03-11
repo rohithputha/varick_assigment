@@ -3,6 +3,9 @@ from __future__ import annotations
 
 from models import POMatchStatus
 
+# Set to True in tests to bypass PO validation and force all invoices to MATCHED.
+FORCE_MATCH: bool = False
+
 
 def validate_po(po_number: str | None) -> tuple[POMatchStatus, float, str]:
     """
@@ -17,6 +20,9 @@ def validate_po(po_number: str | None) -> tuple[POMatchStatus, float, str]:
 
     Confidence is always 1.0 in v1 — fully deterministic.
     """
+    if FORCE_MATCH:
+        return POMatchStatus.MATCHED, 1.0, f"FORCE_MATCH=True — treating as matched"
+
     if po_number is None:
         return POMatchStatus.NO_PO, 1.0, "No PO number present in invoice header"
 

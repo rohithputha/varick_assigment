@@ -92,13 +92,20 @@ def classify_line_signals(
 # ---------------------------------------------------------------------------
 
 def _build_result(rule: dict, line_number: int, rules_version: str) -> GLClassificationResult:
-    output = rule["output"]
+    output   = rule["output"]
+    rule_id  = rule["id"]
+    treatment   = output.get("treatment", "EXPENSE")
+    gl_account  = output.get("gl_account", "?")
+    description = rule.get("description", rule_id)
+    reasoning   = f"{description} → {treatment} {gl_account} ({rule_id})"
     return GLClassificationResult(
         line_number=line_number,
-        gl_account=output.get("gl_account"),
-        treatment=output.get("treatment"),
+        gl_account=gl_account,
+        treatment=treatment,
         base_expense_account=output.get("base_expense_account"),
         confidence=float(output.get("confidence", 1.0)),
+        reasoning=reasoning,
+        applied_rule=rule_id,
         flagged=False,
         flag_reason=None,
         rules_version=rules_version,
@@ -112,6 +119,8 @@ def _flagged(line_number: int, rules_version: str, reason: str) -> GLClassificat
         treatment=None,
         base_expense_account=None,
         confidence=0.0,
+        reasoning=reason,
+        applied_rule="no_rule_matched",
         flagged=True,
         flag_reason=reason,
         rules_version=rules_version,

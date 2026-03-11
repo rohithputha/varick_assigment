@@ -18,12 +18,10 @@ from pipeline.models import (
 from pipeline.state_manager import GlobalStateManager
 from pipeline.stages.ingestion   import IngestionRunner
 from pipeline.stages.po_matching import POMatchingRunner
-from pipeline.stages.stubs       import (
-    GLClassificationRunner,
-    PrepaidAccrualRunner,
-    ApprovalRoutingRunner,
-    PostingRunner,
-)
+from pipeline.stages.gl_classification import GLClassificationRunner
+from pipeline.stages.prepaid_accrual   import PrepaidAccrualRunner
+from pipeline.stages.approval_routing  import ApprovalRoutingRunner
+from pipeline.stages.posting           import PostingRunner
 
 
 # ---------------------------------------------------------------------------
@@ -68,16 +66,21 @@ class Orchestrator:
     # Public API
     # -----------------------------------------------------------------------
 
-    def run(self, input: str | dict) -> dict:
+    def run(self, input: str | dict, dry_run: bool = False) -> dict:
         """
         Start a new pipeline run.
 
         Args:
-            input: File path (str) or raw invoice dict.
+            input:   File path (str) or raw invoice dict.
+            dry_run: If True, stop after Approval Routing and return the routing
+                     decision without proceeding to Posting.
 
         Returns:
             On success:
                 {"run_id": str, "status": "COMPLETE", "invoice_id": str, "output": dict}
+            On dry-run:
+                {"run_id": str, "status": "DRY_RUN", "outcome": str,
+                 "applied_rule": str, "reasoning": str, "routing": dict}
             On halt:
                 {"run_id": str, "status": "HALTED", "stage": str,
                  "reason": str, "halt_id": str}
@@ -87,6 +90,7 @@ class Orchestrator:
         metadata = {
             "source_type": "file" if isinstance(input, str) else "dict",
             "source_path": input  if isinstance(input, str) else None,
+            "dry_run":     dry_run,
         }
         run = self._gsm.create_run(STAGE_SEQUENCE[0], metadata)
 
@@ -152,16 +156,21 @@ class Orchestrator:
                     "resume_state_id": halt.ingestion_state_id,
                 }
         else:
-            # Future stages: resume with corrected input or prior stage output
+            # Non-ingestion resume: merge corrected_input into the prior stage's output
+            # so that keys like {"approved": True} are layered on top of the full
+            # RoutedInvoice payload — not replacing it.
             stage_idx = STAGE_SEQUENCE.index(halted_stage)
             if stage_idx > 0:
-                prior_stage  = STAGE_SEQUENCE[stage_idx - 1]
-                prior_result = self._gsm.get_stage_result(run_id, prior_stage)
-                resume_payload = corrected_input or (
-                    prior_result.output_payload if prior_result else {}
-                )
+                prior_stage   = STAGE_SEQUENCE[stage_idx - 1]
+                prior_result  = self._gsm.get_stage_result(run_id, prior_stage)
+                prior_payload = prior_result.output_payload if prior_result else {}
             else:
-                resume_payload = corrected_input or {}
+                prior_payload = {}
+
+            if corrected_input:
+                resume_payload = {**prior_payload, **corrected_input}
+            else:
+                resume_payload = prior_payload
 
         # Update run back to RUNNING at the halted stage
         self._gsm.update_run_status(
@@ -316,6 +325,7 @@ class Orchestrator:
                     "stage":   stage.value,
                     "reason":  halt_reason,
                     "halt_id": halt.halt_id,
+                    "routing": result.get("routing"),
                 }
 
             # ── Stage complete ───────────────────────────────────────────────
@@ -331,6 +341,25 @@ class Orchestrator:
                         current_stage=stage,
                         invoice_id=invoice_id,
                     )
+
+            # ── Dry-run: stop after Approval Routing ────────────────────────
+            if stage == PipelineStage.APPROVAL_ROUTING:
+                run_record = self._gsm.get_run(run_id)
+                if run_record.metadata.get("dry_run"):
+                    routing = result.get("routing", {})
+                    self._gsm.update_run_status(
+                        run_id,
+                        PipelineStatus.COMPLETE,
+                        current_stage=stage,
+                    )
+                    return {
+                        "run_id":       run_id,
+                        "status":       "DRY_RUN",
+                        "outcome":      routing.get("outcome"),
+                        "applied_rule": routing.get("applied_rule"),
+                        "reasoning":    routing.get("reasoning"),
+                        "routing":      routing,
+                    }
 
             # Output of this stage becomes the input of the next
             current_input = result

@@ -23,6 +23,43 @@ def _now_utc() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+def _row_to_shadow_proposal(row) -> dict:
+    return {
+        "proposal_id":      row["proposal_id"],
+        "invoice_id":       row["invoice_id"],
+        "run_id":           row["run_id"],
+        "vendor":           row["vendor"],
+        "invoice_total":    row["invoice_total"],
+        "po_status":        row["po_status"],
+        "line_proposals":   json.loads(row["line_proposals"]) if row["line_proposals"] else [],
+        "approval_proposal": row["approval_proposal"],
+        "applied_rule":     row["applied_rule"],
+        "reasoning":        row["reasoning"],
+        "flags":            json.loads(row["flags"]) if row["flags"] else [],
+        "notes":            json.loads(row["notes"]) if row["notes"] else [],
+        "review_status":    row["review_status"],
+        "reviewer_id":      row["reviewer_id"],
+        "reviewed_at":      row["reviewed_at"],
+        "corrections":      json.loads(row["corrections"]) if row["corrections"] else None,
+        "created_at":       row["created_at"],
+    }
+
+
+def _row_to_snapshot(row) -> dict:
+    return {
+        "snapshot_id":        row["snapshot_id"],
+        "label":              row["label"],
+        "rules_gl_version":   row["rules_gl_version"],
+        "threshold_version":  row["threshold_version"],
+        "captured_at":        row["captured_at"],
+        "overall_accuracy":   row["overall_accuracy"],
+        "gl_accuracy":        row["gl_accuracy"],
+        "treatment_accuracy": row["treatment_accuracy"],
+        "approval_accuracy":  row["approval_accuracy"],
+        "per_invoice":        json.loads(row["per_invoice"]) if row["per_invoice"] else {},
+    }
+
+
 class GlobalStateManager:
     """
     CRUD operations on all three pipeline tables.
@@ -312,6 +349,180 @@ class GlobalStateManager:
              run_id),
         )
         self._db.connect().commit()
+
+    # -----------------------------------------------------------------------
+    # shadow_proposals
+    # -----------------------------------------------------------------------
+
+    def create_shadow_proposal(self, proposal: dict) -> None:
+        """Insert a shadow proposal row."""
+        conn = self._db.connect()
+        conn.execute(
+            """INSERT INTO shadow_proposals
+               (proposal_id, invoice_id, run_id, vendor, invoice_total, po_status,
+                line_proposals, approval_proposal, applied_rule, reasoning, flags, notes,
+                review_status, reviewer_id, reviewed_at, corrections, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                proposal["proposal_id"],
+                proposal["invoice_id"],
+                proposal["run_id"],
+                proposal.get("vendor"),
+                proposal.get("invoice_total"),
+                proposal.get("po_status"),
+                json.dumps(proposal.get("line_proposals", []), default=str),
+                proposal.get("approval_proposal", "UNKNOWN"),
+                proposal.get("applied_rule"),
+                proposal.get("reasoning"),
+                json.dumps(proposal.get("flags", []), default=str),
+                json.dumps(proposal.get("notes", []), default=str),
+                proposal.get("review_status", "PENDING"),
+                proposal.get("reviewer_id"),
+                proposal.get("reviewed_at"),
+                json.dumps(proposal.get("corrections"), default=str) if proposal.get("corrections") else None,
+                proposal.get("created_at", _now_utc()),
+            ),
+        )
+        conn.commit()
+
+    def get_shadow_proposal(self, proposal_id: str) -> dict | None:
+        row = self._db.connect().execute(
+            "SELECT * FROM shadow_proposals WHERE proposal_id = ?", (proposal_id,)
+        ).fetchone()
+        if row is None:
+            return None
+        return _row_to_shadow_proposal(row)
+
+    def update_shadow_review(
+        self,
+        proposal_id: str,
+        review_status: str,
+        reviewer_id: str | None = None,
+        corrections: list | None = None,
+    ) -> None:
+        conn = self._db.connect()
+        conn.execute(
+            """UPDATE shadow_proposals
+               SET review_status=?, reviewer_id=?, reviewed_at=?, corrections=?
+               WHERE proposal_id=?""",
+            (
+                review_status,
+                reviewer_id,
+                _now_utc(),
+                json.dumps(corrections, default=str) if corrections is not None else None,
+                proposal_id,
+            ),
+        )
+        conn.commit()
+
+    def list_pending_proposals(self) -> list[dict]:
+        rows = self._db.connect().execute(
+            "SELECT * FROM shadow_proposals WHERE review_status='PENDING' ORDER BY created_at"
+        ).fetchall()
+        return [_row_to_shadow_proposal(r) for r in rows]
+
+    def list_all_proposals(self) -> list[dict]:
+        rows = self._db.connect().execute(
+            "SELECT * FROM shadow_proposals ORDER BY created_at"
+        ).fetchall()
+        return [_row_to_shadow_proposal(r) for r in rows]
+
+    # -----------------------------------------------------------------------
+    # feedback_records
+    # -----------------------------------------------------------------------
+
+    def create_feedback_record(self, record: dict) -> None:
+        """Insert one feedback record row."""
+        conn = self._db.connect()
+        conn.execute(
+            """INSERT INTO feedback_records
+               (feedback_id, proposal_id, invoice_id, reviewer_id, stage, field,
+                line_number, proposed_value, corrected_value, correction_reason,
+                applied, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)""",
+            (
+                record["feedback_id"],
+                record["proposal_id"],
+                record["invoice_id"],
+                record["reviewer_id"],
+                record["stage"],
+                record["field"],
+                record.get("line_number"),
+                record["proposed_value"],
+                record["corrected_value"],
+                record.get("correction_reason"),
+                record.get("created_at", _now_utc()),
+            ),
+        )
+        conn.commit()
+
+    def get_feedback_records(
+        self,
+        since: str | None = None,
+        field: str | None = None,
+    ) -> list[dict]:
+        conditions: list[str] = []
+        params: list = []
+        if since:
+            conditions.append("created_at >= ?")
+            params.append(since)
+        if field:
+            conditions.append("field = ?")
+            params.append(field)
+        where = " WHERE " + " AND ".join(conditions) if conditions else ""
+        rows = self._db.connect().execute(
+            f"SELECT * FROM feedback_records{where} ORDER BY created_at", params
+        ).fetchall()
+        return [dict(r) for r in rows]
+
+    def mark_feedback_applied(self, feedback_ids: list[str]) -> None:
+        conn = self._db.connect()
+        for fid in feedback_ids:
+            conn.execute(
+                "UPDATE feedback_records SET applied=1 WHERE feedback_id=?", (fid,)
+            )
+        conn.commit()
+
+    # -----------------------------------------------------------------------
+    # benchmark_snapshots
+    # -----------------------------------------------------------------------
+
+    def create_benchmark_snapshot(self, snapshot: dict) -> None:
+        conn = self._db.connect()
+        conn.execute(
+            """INSERT INTO benchmark_snapshots
+               (snapshot_id, label, rules_gl_version, threshold_version,
+                captured_at, overall_accuracy, gl_accuracy, treatment_accuracy,
+                approval_accuracy, per_invoice)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                snapshot["snapshot_id"],
+                snapshot["label"],
+                snapshot["rules_gl_version"],
+                snapshot["threshold_version"],
+                snapshot.get("captured_at", _now_utc()),
+                snapshot["overall_accuracy"],
+                snapshot["gl_accuracy"],
+                snapshot["treatment_accuracy"],
+                snapshot["approval_accuracy"],
+                json.dumps(snapshot.get("per_invoice", {})),
+            ),
+        )
+        conn.commit()
+
+    def get_benchmark_snapshot(self, snapshot_id: str) -> dict | None:
+        row = self._db.connect().execute(
+            "SELECT * FROM benchmark_snapshots WHERE snapshot_id = ?", (snapshot_id,)
+        ).fetchone()
+        if row is None:
+            return None
+        return _row_to_snapshot(row)
+
+    def list_snapshots(self) -> list[dict]:
+        rows = self._db.connect().execute(
+            "SELECT * FROM benchmark_snapshots ORDER BY captured_at DESC"
+        ).fetchall()
+        return [_row_to_snapshot(r) for r in rows]
 
     def get_active_halt(self, run_id: str) -> HaltRecord | None:
         """Return the most recent unresolved halt record for a run."""

@@ -159,9 +159,16 @@ def run_ingestion_agent(
                 if retry_struct.get("has_errors"):
                     add_note(
                         sid,
-                        f"Structural error persists after retry on rule '{rule}': "
-                        f"{issue.get('message')} — finalize will set status=FAILED"
+                        f"HALT: structural error persists after retry on rule '{rule}': "
+                        f"{issue.get('message')}"
                     )
+                    return {
+                        "halted":   True,
+                        "state_id": sid,
+                        "reason":   "structural_validation_failed",
+                        "rule":     rule,
+                        "message":  issue.get("message", ""),
+                    }
 
     # ── STEP 5: BUSINESS VALIDATION ──────────────────────────────────────────
     biz_result = validate_business_rules(sid)
@@ -187,4 +194,12 @@ def run_ingestion_agent(
 
     # ── STEP 6: FINALIZE ─────────────────────────────────────────────────────
     compute_confidence(sid)
-    return finalize_invoice(sid)
+    result = finalize_invoice(sid)
+    if not result.get("success"):
+        return {
+            "halted":   True,
+            "state_id": sid,
+            "reason":   "finalize_failed",
+            "error":    result.get("error", "finalize_invoice returned success=False"),
+        }
+    return result

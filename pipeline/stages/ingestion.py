@@ -38,4 +38,4 @@ class IngestionRunner(StageRunner):
             return result
 
         except Exception as e:
-            return {"halted": False, "success": False, "error": str(e)}
+            return {"halted": True, "reason": "ingestion_exception", "error": str(e)}

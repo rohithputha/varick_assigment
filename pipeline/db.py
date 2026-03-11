@@ -80,6 +80,60 @@ class SQLiteDB:
             CREATE INDEX IF NOT EXISTS idx_stage_results_run_id ON stage_results(run_id);
             CREATE INDEX IF NOT EXISTS idx_halt_records_run_id  ON halt_records(run_id);
             CREATE INDEX IF NOT EXISTS idx_pipeline_runs_status ON pipeline_runs(status);
+
+            CREATE TABLE IF NOT EXISTS shadow_proposals (
+                proposal_id       TEXT PRIMARY KEY,
+                invoice_id        TEXT NOT NULL,
+                run_id            TEXT NOT NULL,
+                vendor            TEXT,
+                invoice_total     REAL,
+                po_status         TEXT,
+                line_proposals    TEXT NOT NULL,
+                approval_proposal TEXT NOT NULL,
+                applied_rule      TEXT,
+                reasoning         TEXT,
+                flags             TEXT NOT NULL,
+                notes             TEXT NOT NULL,
+                review_status     TEXT NOT NULL DEFAULT 'PENDING',
+                reviewer_id       TEXT,
+                reviewed_at       TEXT,
+                corrections       TEXT,
+                created_at        TEXT NOT NULL
+            );
+
+            CREATE INDEX IF NOT EXISTS idx_shadow_review_status ON shadow_proposals(review_status);
+
+            CREATE TABLE IF NOT EXISTS feedback_records (
+                feedback_id       TEXT PRIMARY KEY,
+                proposal_id       TEXT NOT NULL,
+                invoice_id        TEXT NOT NULL,
+                reviewer_id       TEXT NOT NULL,
+                stage             TEXT NOT NULL,
+                field             TEXT NOT NULL,
+                line_number       INTEGER,
+                proposed_value    TEXT NOT NULL,
+                corrected_value   TEXT NOT NULL,
+                correction_reason TEXT,
+                applied           INTEGER NOT NULL DEFAULT 0,
+                created_at        TEXT NOT NULL
+            );
+
+            CREATE INDEX IF NOT EXISTS idx_feedback_field   ON feedback_records(field);
+            CREATE INDEX IF NOT EXISTS idx_feedback_stage   ON feedback_records(stage);
+            CREATE INDEX IF NOT EXISTS idx_feedback_applied ON feedback_records(applied);
+
+            CREATE TABLE IF NOT EXISTS benchmark_snapshots (
+                snapshot_id        TEXT PRIMARY KEY,
+                label              TEXT NOT NULL,
+                rules_gl_version   TEXT NOT NULL,
+                threshold_version  TEXT NOT NULL,
+                captured_at        TEXT NOT NULL,
+                overall_accuracy   REAL NOT NULL,
+                gl_accuracy        REAL NOT NULL,
+                treatment_accuracy REAL NOT NULL,
+                approval_accuracy  REAL NOT NULL,
+                per_invoice        TEXT NOT NULL
+            );
         """)
         conn.commit()
 

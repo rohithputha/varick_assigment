@@ -31,6 +31,10 @@ class POMatchingRunner(StageRunner):
             if "halted" not in result:
                 result["halted"] = False
 
+            # Pass the invoice dict through so GL Classification can read it
+            # without needing to look up the prior stage from the database.
+            result["invoice"] = invoice_dict
+
             return result
 
         except Exception as e:

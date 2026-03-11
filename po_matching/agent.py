@@ -56,15 +56,26 @@ def run_po_matching_agent(invoice_dict: dict) -> dict:
         # NO_PO          → flag, proceed (may be approved manually at Approval stage)
         # INVALID_FORMAT → flag, proceed (flag for human review at Approval stage)
 
-        if status == POMatchStatus.MATCHED:
-            pass  # clean — no extra notes needed
-        elif status == POMatchStatus.NO_PO:
-            notes.append("Invoice has no PO — will require manual approval at Approval Routing stage")
+        if status == POMatchStatus.NO_PO:
+            notes.append("Invoice has no PO — halting for human review")
+            return {
+                "halted":     True,
+                "reason":     status.value,
+                "invoice_id": result["invoice_id"],
+                "po_number":  result["po_number"],
+                "notes":      notes,
+            }
         elif status == POMatchStatus.INVALID_FORMAT:
             notes.append(
-                f"PO format invalid — '{result['po_number']}' flagged for human review "
-                f"at Approval Routing stage"
+                f"PO format invalid — '{result['po_number']}' halting for human review"
             )
+            return {
+                "halted":     True,
+                "reason":     status.value,
+                "invoice_id": result["invoice_id"],
+                "po_number":  result["po_number"],
+                "notes":      notes,
+            }
 
         return {
             "halted":     False,
