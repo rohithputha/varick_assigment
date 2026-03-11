@@ -1,0 +1,230 @@
+{
+  "version": "1.0",
+  "updated_at": "2026-03-11T00:00:00",
+  "rules": [
+    {
+      "id": "rule1_physical_goods",
+      "priority": 10,
+      "description": "Physical goods always go to Office Supplies, overrides dept",
+      "condition": {
+        "category_hint": { "eq": "physical_goods" }
+      },
+      "output": {
+        "gl_account": "5000",
+        "treatment": "EXPENSE",
+        "confidence": 1.0
+      },
+      "enabled": true
+    },
+    {
+      "id": "rule2_equipment_capitalize",
+      "priority": 20,
+      "description": "Equipment unit cost >= $5K → capitalize as fixed asset",
+      "condition": {
+        "category_hint": { "eq": "equipment" },
+        "unit_cost": { "gte": 5000 }
+      },
+      "output": {
+        "gl_account": "1500",
+        "treatment": "CAPITALIZE",
+        "confidence": 0.95
+      },
+      "enabled": true
+    },
+    {
+      "id": "rule2_equipment_expense",
+      "priority": 21,
+      "description": "Equipment unit cost < $5K → expense directly",
+      "condition": {
+        "category_hint": { "eq": "equipment" },
+        "unit_cost": { "lt": 5000 }
+      },
+      "output": {
+        "gl_account": "5110",
+        "treatment": "EXPENSE",
+        "confidence": 0.95
+      },
+      "enabled": true
+    },
+    {
+      "id": "rule2_equipment_fallback",
+      "priority": 22,
+      "description": "Equipment, unit_cost unknown — use line_amount as proxy (lower confidence)",
+      "condition": {
+        "category_hint": { "eq": "equipment" },
+        "unit_cost": { "is_null": true },
+        "line_amount": { "gte": 5000 }
+      },
+      "output": {
+        "gl_account": "1500",
+        "treatment": "CAPITALIZE",
+        "confidence": 0.85
+      },
+      "enabled": true
+    },
+    {
+      "id": "rule3_software_prepaid",
+      "priority": 30,
+      "description": "Annual software billing → Prepaid Software",
+      "condition": {
+        "category_hint": { "eq": "software" },
+        "billing_type": { "eq": "annual" }
+      },
+      "output": {
+        "gl_account": "1310",
+        "treatment": "PREPAID",
+        "base_expense_account": "5010",
+        "confidence": 1.0
+      },
+      "enabled": true
+    },
+    {
+      "id": "rule3_software_expense",
+      "priority": 31,
+      "description": "Non-annual software billing → expense directly",
+      "condition": {
+        "category_hint": { "eq": "software" },
+        "billing_type": { "in": ["monthly", "usage-based", "one-time", "unknown"] }
+      },
+      "output": {
+        "gl_account": "5010",
+        "treatment": "EXPENSE",
+        "confidence": 1.0
+      },
+      "enabled": true
+    },
+    {
+      "id": "rule4_cloud_prepaid",
+      "priority": 40,
+      "description": "Annual cloud billing → Prepaid General (amortises to cloud)",
+      "condition": {
+        "category_hint": { "eq": "cloud" },
+        "billing_type": { "eq": "annual" }
+      },
+      "output": {
+        "gl_account": "1300",
+        "treatment": "PREPAID",
+        "base_expense_account": "5020",
+        "confidence": 1.0
+      },
+      "enabled": true
+    },
+    {
+      "id": "rule4_cloud_expense",
+      "priority": 41,
+      "description": "Non-annual cloud billing → expense directly",
+      "condition": {
+        "category_hint": { "eq": "cloud" },
+        "billing_type": { "in": ["monthly", "usage-based", "one-time", "unknown"] }
+      },
+      "output": {
+        "gl_account": "5020",
+        "treatment": "EXPENSE",
+        "confidence": 1.0
+      },
+      "enabled": true
+    },
+    {
+      "id": "rule5_legal",
+      "priority": 50,
+      "description": "Legal services → Professional Services Legal",
+      "condition": {
+        "category_hint": { "eq": "legal" }
+      },
+      "output": {
+        "gl_account": "5030",
+        "treatment": "EXPENSE",
+        "confidence": 1.0
+      },
+      "enabled": true
+    },
+    {
+      "id": "rule5_consulting",
+      "priority": 51,
+      "description": "Consulting / advisory services → Professional Services Consulting",
+      "condition": {
+        "category_hint": { "eq": "professional_services" }
+      },
+      "output": {
+        "gl_account": "5040",
+        "treatment": "EXPENSE",
+        "confidence": 1.0
+      },
+      "enabled": true
+    },
+    {
+      "id": "rule6_marketing",
+      "priority": 60,
+      "description": "Marketing & Advertising (physical goods caught by rule1 first)",
+      "condition": {
+        "category_hint": { "eq": "marketing" }
+      },
+      "output": {
+        "gl_account": "5050",
+        "treatment": "EXPENSE",
+        "confidence": 1.0
+      },
+      "enabled": true
+    },
+    {
+      "id": "rule7_travel",
+      "priority": 70,
+      "condition": { "category_hint": { "eq": "travel" } },
+      "output": { "gl_account": "5060", "treatment": "EXPENSE", "confidence": 1.0 },
+      "enabled": true
+    },
+    {
+      "id": "rule7_facilities",
+      "priority": 71,
+      "condition": { "category_hint": { "eq": "facilities" } },
+      "output": { "gl_account": "5070", "treatment": "EXPENSE", "confidence": 1.0 },
+      "enabled": true
+    },
+    {
+      "id": "rule7_training",
+      "priority": 72,
+      "condition": { "category_hint": { "eq": "training" } },
+      "output": { "gl_account": "5080", "treatment": "EXPENSE", "confidence": 1.0 },
+      "enabled": true
+    },
+    {
+      "id": "rule7_telecom",
+      "priority": 73,
+      "condition": { "category_hint": { "eq": "telecom" } },
+      "output": { "gl_account": "5090", "treatment": "EXPENSE", "confidence": 1.0 },
+      "enabled": true
+    },
+    {
+      "id": "rule7_insurance",
+      "priority": 74,
+      "description": "Insurance → expense; annual prepaid adjustment handled by Step 3",
+      "condition": { "category_hint": { "eq": "insurance" } },
+      "output": { "gl_account": "5100", "treatment": "EXPENSE", "confidence": 1.0 },
+      "enabled": true
+    }
+  ],
+
+  "category_normalisation": {
+    "saas": "software",
+    "software as a service": "software",
+    "cloud computing": "cloud",
+    "cloud infrastructure": "cloud",
+    "advisory": "professional_services",
+    "advisory services": "professional_services",
+    "consulting": "professional_services",
+    "contract review": "legal",
+    "litigation": "legal",
+    "patent": "legal"
+  },
+
+  "billing_type_normalisation": {
+    "yearly": "annual",
+    "annually": "annual",
+    "per month": "monthly",
+    "per year": "annual",
+    "pay as you go": "usage-based",
+    "payg": "usage-based",
+    "one time": "one-time",
+    "once": "one-time"
+  }
+}

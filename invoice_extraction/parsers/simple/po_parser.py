@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import re
 
-from invoice_extraction.models import ParsedField
+from models import ParsedField
 
 
 # Standard format: PO-YYYY-### (3+ digits)

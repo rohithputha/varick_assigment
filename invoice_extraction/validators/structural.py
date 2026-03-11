@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from decimal import Decimal
 
-from invoice_extraction.models import (
+from models import (
     InvoiceHeader,
     LineItem,
     ParsedField,

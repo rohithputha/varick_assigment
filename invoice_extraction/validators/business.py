@@ -7,7 +7,7 @@ from __future__ import annotations
 from datetime import date
 from decimal import Decimal
 
-from invoice_extraction.models import (
+from models import (
     FlagType,
     InvoiceFlag,
     InvoiceHeader,

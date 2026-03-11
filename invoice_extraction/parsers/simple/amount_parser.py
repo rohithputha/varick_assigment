@@ -4,7 +4,7 @@ from __future__ import annotations
 import re
 from decimal import Decimal, InvalidOperation
 
-from invoice_extraction.models import ParsedField
+from models import ParsedField
 
 
 # ---------------------------------------------------------------------------

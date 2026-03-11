@@ -1,0 +1,298 @@
+[
+  {
+    "raw_input": {
+      "invoice_id": "INV-001",
+      "vendor_name": "Cloudware Solutions",
+      "invoice_date": "2026-01-05",
+      "po_number": "PO-2026-044",
+      "department": "Engineering",
+      "total_amount": "24000.00",
+      "currency": "USD",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "Annual Platform License (Jan–Dec 2026)",
+          "amount": "24000.00"
+        }
+      ]
+    },
+    "ground_truth": {
+      "line_items": [
+        {
+          "line_number": 1,
+          "expected_gl_account": "1310",
+          "expected_treatment": "PREPAID",
+          "base_expense_account": "5010",
+          "monthly_amortization_amount": "2000.00",
+          "amortization_months": 12,
+          "service_period_start": "2026-01-01",
+          "service_period_end": "2026-12-31",
+          "treatment_note": "Annual software license — book to Prepaid Software (1310), amortize $2K/mo to Software & Subscriptions (5010)"
+        }
+      ]
+    }
+  },
+
+  {
+    "raw_input": {
+      "invoice_id": "INV-002",
+      "vendor_name": "Morrison & Burke LLP",
+      "invoice_date": "2026-01-20",
+      "po_number": "PO-2026-051",
+      "department": "Legal",
+      "total_amount": "9500.00",
+      "currency": "USD",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "Patent filing & prosecution",
+          "amount": "4500.00"
+        },
+        {
+          "line_number": 2,
+          "description": "Regulatory compliance review & advisory",
+          "amount": "3200.00"
+        },
+        {
+          "line_number": 3,
+          "description": "Contract review for marketing partnership",
+          "amount": "1800.00"
+        }
+      ]
+    },
+    "ground_truth": {
+      "line_items": [
+        {
+          "line_number": 1,
+          "expected_gl_account": "5030",
+          "expected_treatment": "EXPENSE",
+          "base_expense_account": null,
+          "treatment_note": "Legal services (patent) — Professional Services Legal (5030)"
+        },
+        {
+          "line_number": 2,
+          "expected_gl_account": "5040",
+          "expected_treatment": "EXPENSE",
+          "base_expense_account": null,
+          "treatment_note": "Advisory qualifier overrides regulatory/compliance framing — Consulting (5040), not Legal (5030)"
+        },
+        {
+          "line_number": 3,
+          "expected_gl_account": "5030",
+          "expected_treatment": "EXPENSE",
+          "base_expense_account": null,
+          "treatment_note": "Contract review is legal work — Professional Services Legal (5030)"
+        }
+      ]
+    }
+  },
+
+  {
+    "raw_input": {
+      "invoice_id": "INV-003",
+      "vendor_name": "TechDirect Inc.",
+      "invoice_date": "2026-02-01",
+      "po_number": "PO-2026-038",
+      "department": "Engineering",
+      "total_amount": "49900.00",
+      "currency": "USD",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "MacBook Pro 14\" (3x $1,800)",
+          "amount": "5400.00"
+        },
+        {
+          "line_number": 2,
+          "description": "Dell PowerEdge R760 Server",
+          "amount": "8500.00"
+        },
+        {
+          "line_number": 3,
+          "description": "AWS Reserved Instances Annual (Feb 26–Jan 27)",
+          "amount": "36000.00"
+        }
+      ]
+    },
+    "ground_truth": {
+      "line_items": [
+        {
+          "line_number": 1,
+          "expected_gl_account": "5110",
+          "expected_treatment": "EXPENSE",
+          "base_expense_account": null,
+          "unit_cost": "1800.00",
+          "quantity": 3,
+          "treatment_note": "Equipment — unit cost $1,800 < $5K threshold → expense to Equipment under $5K (5110), not capitalize"
+        },
+        {
+          "line_number": 2,
+          "expected_gl_account": "1500",
+          "expected_treatment": "CAPITALIZE",
+          "base_expense_account": null,
+          "unit_cost": "8500.00",
+          "quantity": 1,
+          "treatment_note": "Equipment — unit cost $8,500 >= $5K threshold → capitalize to Fixed Assets (1500)"
+        },
+        {
+          "line_number": 3,
+          "expected_gl_account": "1300",
+          "expected_treatment": "PREPAID",
+          "base_expense_account": "5020",
+          "monthly_amortization_amount": "3000.00",
+          "amortization_months": 12,
+          "service_period_start": "2026-02-01",
+          "service_period_end": "2027-01-31",
+          "treatment_note": "Annual cloud hosting prepayment — book to Prepaid Expenses General (1300), amortize $3K/mo to Cloud Hosting & Infrastructure (5020)"
+        }
+      ]
+    }
+  },
+
+  {
+    "raw_input": {
+      "invoice_id": "INV-004",
+      "vendor_name": "Apex Strategy Group",
+      "invoice_date": "2026-01-15",
+      "po_number": "PO-2025-189",
+      "department": "Operations",
+      "total_amount": "8700.00",
+      "currency": "USD",
+      "service_period": "Dec 2025",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "Operational efficiency assessment – Dec 2025",
+          "amount": "7500.00"
+        },
+        {
+          "line_number": 2,
+          "description": "Travel expenses – Dec 2025 on-site visits",
+          "amount": "1200.00"
+        }
+      ]
+    },
+    "ground_truth": {
+      "line_items": [
+        {
+          "line_number": 1,
+          "expected_gl_account": "2110",
+          "expected_treatment": "ACCRUAL",
+          "base_expense_account": "5040",
+          "service_period_start": "2025-12-01",
+          "service_period_end": "2025-12-31",
+          "treatment_note": "Consulting service delivered Dec 2025, invoiced Jan 2026 — service precedes invoice date → Accrued Professional Services (2110), reverse to Consulting (5040) when paid"
+        },
+        {
+          "line_number": 2,
+          "expected_gl_account": "2100",
+          "expected_treatment": "ACCRUAL",
+          "base_expense_account": "5060",
+          "service_period_start": "2025-12-01",
+          "service_period_end": "2025-12-31",
+          "treatment_note": "Travel incurred Dec 2025, invoiced Jan 2026 — service precedes invoice date → Accrued Expenses General (2100), reverse to Travel & Entertainment (5060) when paid"
+        }
+      ]
+    }
+  },
+
+  {
+    "raw_input": {
+      "invoice_id": "INV-005",
+      "vendor_name": "BrightSpark Agency",
+      "invoice_date": "2026-02-10",
+      "po_number": "PO-2026-062",
+      "department": "Marketing",
+      "total_amount": "23500.00",
+      "currency": "USD",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "Q1 digital ad campaign management",
+          "amount": "15000.00"
+        },
+        {
+          "line_number": 2,
+          "description": "Branded company t-shirts (500 units)",
+          "amount": "2000.00"
+        },
+        {
+          "line_number": 3,
+          "description": "Conference booth rental – Mar 2026",
+          "amount": "5000.00"
+        },
+        {
+          "line_number": 4,
+          "description": "Conference attendee gift bags (branded)",
+          "amount": "1500.00"
+        }
+      ]
+    },
+    "ground_truth": {
+      "line_items": [
+        {
+          "line_number": 1,
+          "expected_gl_account": "5050",
+          "expected_treatment": "EXPENSE",
+          "base_expense_account": null,
+          "treatment_note": "Digital ad campaign — Marketing & Advertising (5050)"
+        },
+        {
+          "line_number": 2,
+          "expected_gl_account": "5000",
+          "expected_treatment": "EXPENSE",
+          "base_expense_account": null,
+          "unit_cost": "4.00",
+          "quantity": 500,
+          "treatment_note": "Physical goods (branded merch) — SOP Rule 1 overrides Marketing dept → Office Supplies (5000)"
+        },
+        {
+          "line_number": 3,
+          "expected_gl_account": "5050",
+          "expected_treatment": "EXPENSE",
+          "base_expense_account": null,
+          "treatment_note": "Conference booth rental is marketing spend — Marketing & Advertising (5050)"
+        },
+        {
+          "line_number": 4,
+          "expected_gl_account": "5000",
+          "expected_treatment": "EXPENSE",
+          "base_expense_account": null,
+          "treatment_note": "Physical goods (branded gift bags) — SOP Rule 1 overrides Marketing dept → Office Supplies (5000)"
+        }
+      ]
+    }
+  },
+
+  {
+    "raw_input": {
+      "invoice_id": "INV-006",
+      "vendor_name": "QuickPrint Co.",
+      "invoice_date": "2026-02-20",
+      "po_number": null,
+      "department": "Marketing",
+      "total_amount": "3800.00",
+      "currency": "USD",
+      "line_items": [
+        {
+          "line_number": 1,
+          "description": "Rush printing – sales brochures (5,000 units)",
+          "amount": "3800.00"
+        }
+      ]
+    },
+    "ground_truth": {
+      "line_items": [
+        {
+          "line_number": 1,
+          "expected_gl_account": null,
+          "expected_treatment": null,
+          "base_expense_account": null,
+          "treatment_note": "No PO — SOP Step 1 blocks classification. Flag entire invoice for manual review. Do not classify any line items."
+        }
+      ],
+      "invoice_blocked": true,
+      "block_reason": "NO_PO"
+    }
+  }
+]

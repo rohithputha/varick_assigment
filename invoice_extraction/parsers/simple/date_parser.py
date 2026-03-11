@@ -5,7 +5,7 @@ import re
 from datetime import date, datetime
 from calendar import monthrange
 
-from invoice_extraction.models import ParsedField
+from models import ParsedField
 
 
 # ---------------------------------------------------------------------------

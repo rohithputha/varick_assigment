@@ -7,7 +7,7 @@ import re
 import uuid
 from decimal import Decimal
 
-from invoice_extraction.models import FlagType, InvoiceStatus, Severity
+from models import FlagType, InvoiceStatus, Severity
 from invoice_extraction.state import StateManager
 
 

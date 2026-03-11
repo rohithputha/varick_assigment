@@ -16,7 +16,7 @@ from datetime import date, timedelta
 
 import anthropic
 
-from invoice_extraction.models import LineDescriptionResult
+from models import LineDescriptionResult
 
 
 _CLIENT = anthropic.Anthropic()
