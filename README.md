@@ -228,6 +228,18 @@ In practice this is manageable at low volume: you'd just avoid running feedback 
 
 The cleaner fix is a versioned metadata server sitting in front of the rule files. The server maintains multiple versions of `rules.json` and `prompts.json`. The main pipeline always reads from the current stable version. When the feedback loop wants to apply a change, it writes a new version, validates it, and atomically promotes it to current — the old version stays available until the swap completes. Any pipeline run that started before the swap keeps reading the old version until it finishes; new runs pick up the new one. No partial reads, no crashes, and you get version history as a side effect — so if a rule change turns out to be wrong you can roll back to any prior version without needing to reconstruct it from benchmark snapshots.
 
+### UUID4 IDs and B-tree index fragmentation
+
+All IDs across the state store — `run_id`, `result_id`, `halt_id`, `proposal_id`, `feedback_id`, `snapshot_id` — are UUID4s stored as TEXT strings. UUID4s were chosen for simplicity: they're globally unique, easy to generate anywhere without coordination, and work cleanly as opaque handles passed between the CLI, orchestrator, and state manager.
+
+The problem is that B-tree indexes — which is what SQLite uses for all indexes — are comparison-based structures that work best when keys are inserted in order. Sequential keys (like auto-increment integers) always append to the rightmost leaf of the tree, pages fill cleanly, and the structure stays tight. UUID4s are random, so each new insert lands at a random position. The B-tree has to split pages to make room, those splits cascade, and over time the index becomes fragmented — pages are partially empty, reads require more I/O to traverse a wider and deeper tree, and writes take longer because of the extra reorganisation.
+
+On top of that, a UUID4 stored as TEXT is 36 bytes. An auto-increment integer is 8 bytes. Each B-tree page fits fewer entries, so the index is physically larger and slower to scan.
+
+At the current scale — hundreds of invoices, a handful of tables — none of this is measurable. But at high write volumes, the fragmentation compounds and will show up in write latency on the high-churn tables (`stage_results`, `feedback_records`).
+
+The straightforward fix when that becomes a problem is switching to auto-increment integers as primary keys. SQLite's `INTEGER PRIMARY KEY` is special — it maps directly to the internal `rowid`, so inserts are always sequential and the B-tree stays perfectly ordered with no fragmentation. If globally unique external IDs are still needed (for API responses, CLI output, cross-system references), a separate `uuid` TEXT column can carry that without being the indexed key.
+
 ---
 
 ## Stack
