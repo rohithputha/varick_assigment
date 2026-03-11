@@ -1,0 +1,217 @@
+{
+  "batch_id": "batch_20260311_182447",
+  "generated_at": "2026-03-11T18:24:47.234997+00:00",
+  "instructions": "For each line: leave corrected_value as null if the proposal is correct. Fill in corrected_value (and optional reason) where you disagree.",
+  "proposals": [
+    {
+      "proposal_id": "5f59c44a-623a-493e-9757-0bccbf551943",
+      "invoice_id": "INV-101",
+      "vendor": "Brightpath Software",
+      "invoice_total": 24000.0,
+      "invoice_date": "2026-02-01",
+      "po_number": "PO-2026-201",
+      "po_status": "UNKNOWN",
+      "flags": [],
+      "lines": [],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "UNKNOWN",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "5dce6af1-ea5b-4771-8c3d-9675eeeadf06",
+      "invoice_id": "INV-102",
+      "vendor": "NexaCloud Inc",
+      "invoice_total": 890.0,
+      "invoice_date": "2026-02-03",
+      "po_number": "PO-2026-202",
+      "po_status": "UNKNOWN",
+      "flags": [],
+      "lines": [],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "UNKNOWN",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "db26639a-09e3-4bf4-98f6-14e3dfe94b2b",
+      "invoice_id": "INV-103",
+      "vendor": "GlobalTech Supply",
+      "invoice_total": 13400.0,
+      "invoice_date": "2026-02-05",
+      "po_number": "PO-2026-203",
+      "po_status": "UNKNOWN",
+      "flags": [],
+      "lines": [],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "UNKNOWN",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "8b8e5df2-d8a4-425a-a548-db6de4445c01",
+      "invoice_id": "INV-104",
+      "vendor": "Sterling Insurance",
+      "invoice_total": 18000.0,
+      "invoice_date": "2026-02-07",
+      "po_number": "PO-2026-204",
+      "po_status": "UNKNOWN",
+      "flags": [],
+      "lines": [],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "UNKNOWN",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "2d299e0c-53ff-44b9-b19f-7c358567ba16",
+      "invoice_id": "INV-105",
+      "vendor": "Vertex Consulting",
+      "invoice_total": 8700.0,
+      "invoice_date": "2026-01-15",
+      "po_number": "PO-2026-205",
+      "po_status": "UNKNOWN",
+      "flags": [],
+      "lines": [],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "UNKNOWN",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "f8b6d70b-56c8-4bdb-a293-e15ea62bd90f",
+      "invoice_id": "INV-106",
+      "vendor": "Adwave Agency",
+      "invoice_total": 23500.0,
+      "invoice_date": "2026-02-10",
+      "po_number": "PO-2026-206",
+      "po_status": "UNKNOWN",
+      "flags": [],
+      "lines": [],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "UNKNOWN",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "56cfe929-155b-4c0f-8525-2efff566f6ad",
+      "invoice_id": "INV-107",
+      "vendor": "TrainRight LLC",
+      "invoice_total": 2100.0,
+      "invoice_date": "2026-02-12",
+      "po_number": "PO-2026-207",
+      "po_status": "UNKNOWN",
+      "flags": [],
+      "lines": [],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "UNKNOWN",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "4bb5f4f8-6790-4ae5-94a3-b0e0020b08f5",
+      "invoice_id": "INV-108",
+      "vendor": "FacilityPro",
+      "invoice_total": 4800.0,
+      "invoice_date": "2026-02-14",
+      "po_number": "PO-2026-208",
+      "po_status": "UNKNOWN",
+      "flags": [],
+      "lines": [],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "UNKNOWN",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "45bff466-e696-4d7f-94e4-ef0864da4e49",
+      "invoice_id": "INV-109",
+      "vendor": "DataLab Inc",
+      "invoice_total": 39600.0,
+      "invoice_date": "2026-02-16",
+      "po_number": "PO-2026-209",
+      "po_status": "UNKNOWN",
+      "flags": [],
+      "lines": [],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "UNKNOWN",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "7539b1b1-f7f3-4511-9f33-33582062b4f8",
+      "invoice_id": "INV-110",
+      "vendor": "GrowthLabs Partners",
+      "invoice_total": 6200.0,
+      "invoice_date": "2026-02-18",
+      "po_number": "PO-2026-210",
+      "po_status": "UNKNOWN",
+      "flags": [],
+      "lines": [],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "UNKNOWN",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    }
+  ]
+}

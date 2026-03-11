@@ -1,0 +1,662 @@
+{
+  "batch_id": "batch_20260311_182958",
+  "generated_at": "2026-03-11T18:29:58.266148+00:00",
+  "instructions": "For each line: leave corrected_value as null if the proposal is correct. Fill in corrected_value (and optional reason) where you disagree.",
+  "proposals": [
+    {
+      "proposal_id": "05c5864a-d986-41d1-89f1-70706fd115f9",
+      "invoice_id": "INV-101",
+      "vendor": "Brightpath Software",
+      "invoice_total": 24000.0,
+      "invoice_date": "2026-02-01",
+      "po_number": "PO-2026-201",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 24000.0,
+          "category_hint": "software",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "2100",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "ACCRUAL",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "base_expense_account",
+              "proposed_value": "5010",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "accrual_account",
+              "proposed_value": "2100",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "expense_account",
+              "proposed_value": "1310",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "VP_FINANCE",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "5d32dd52-7083-4db0-b3ff-0fc720c44e5a",
+      "invoice_id": "INV-102",
+      "vendor": "NexaCloud Inc",
+      "invoice_total": 890.0,
+      "invoice_date": "2026-02-03",
+      "po_number": "PO-2026-202",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 890.0,
+          "category_hint": "cloud",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5020",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "AUTO_APPROVE",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "4bfa40b6-819a-4e5f-a9a7-a64001568a43",
+      "invoice_id": "INV-103",
+      "vendor": "GlobalTech Supply",
+      "invoice_total": 13400.0,
+      "invoice_date": "2026-02-05",
+      "po_number": "PO-2026-203",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 12000.0,
+          "category_hint": "equipment",
+          "confidence": 0.95,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "1500",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "CAPITALIZE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        },
+        {
+          "line_number": 2,
+          "description": "",
+          "amount": 1400.0,
+          "category_hint": "physical_goods",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5000",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "VP_FINANCE",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "ef1cf62f-5392-43f4-93da-9ca3d7aa7daa",
+      "invoice_id": "INV-104",
+      "vendor": "Sterling Insurance",
+      "invoice_total": 18000.0,
+      "invoice_date": "2026-02-07",
+      "po_number": "PO-2026-204",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 18000.0,
+          "category_hint": "insurance",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "2100",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "ACCRUAL",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "accrual_account",
+              "proposed_value": "2100",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "expense_account",
+              "proposed_value": "5100",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "VP_FINANCE",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "ae310885-cb26-40c9-9068-5726adafecf9",
+      "invoice_id": "INV-105",
+      "vendor": "Vertex Consulting",
+      "invoice_total": 8700.0,
+      "invoice_date": "2026-01-15",
+      "po_number": "PO-2026-205",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 5200.0,
+          "category_hint": "professional_services",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "2110",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "ACCRUAL",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "accrual_account",
+              "proposed_value": "2110",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "expense_account",
+              "proposed_value": "5040",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        },
+        {
+          "line_number": 2,
+          "description": "",
+          "amount": 3500.0,
+          "category_hint": "professional_services",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "2110",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "ACCRUAL",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "accrual_account",
+              "proposed_value": "2110",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "expense_account",
+              "proposed_value": "5040",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "DEPT_MANAGER",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "a75221ae-b366-4ad2-b7bc-d7fa9b44df70",
+      "invoice_id": "INV-106",
+      "vendor": "Adwave Agency",
+      "invoice_total": 23500.0,
+      "invoice_date": "2026-02-10",
+      "po_number": "PO-2026-206",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 12000.0,
+          "category_hint": "marketing",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "2100",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "ACCRUAL",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "accrual_account",
+              "proposed_value": "2100",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "expense_account",
+              "proposed_value": "5050",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        },
+        {
+          "line_number": 2,
+          "description": "",
+          "amount": 8500.0,
+          "category_hint": "physical_goods",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5000",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        },
+        {
+          "line_number": 3,
+          "description": "",
+          "amount": 3000.0,
+          "category_hint": "physical_goods",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5000",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "VP_FINANCE",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "4924cffd-7cb2-4313-9c6c-6e8644ec8a13",
+      "invoice_id": "INV-107",
+      "vendor": "TrainRight LLC",
+      "invoice_total": 2100.0,
+      "invoice_date": "2026-02-12",
+      "po_number": "PO-2026-207",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 1400.0,
+          "category_hint": "training",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5080",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        },
+        {
+          "line_number": 2,
+          "description": "",
+          "amount": 700.0,
+          "category_hint": "software",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5010",
+              "corrected_value": "5020",
+              "reason": "Monthly video platform is cloud infrastructure, not software license"
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "AUTO_APPROVE",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "0aa95526-f6c3-43c9-94f0-7c6cb0bfc50b",
+      "invoice_id": "INV-108",
+      "vendor": "FacilityPro",
+      "invoice_total": 4800.0,
+      "invoice_date": "2026-02-14",
+      "po_number": "PO-2026-208",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 4800.0,
+          "category_hint": "facilities",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5070",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "DEPT_MANAGER",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "af5ed841-c7af-4d6e-9fff-8403cb5568e3",
+      "invoice_id": "INV-109",
+      "vendor": "DataLab Inc",
+      "invoice_total": 39600.0,
+      "invoice_date": "2026-02-16",
+      "po_number": "PO-2026-209",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 36000.0,
+          "category_hint": "software",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "1310",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "PREPAID",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "base_expense_account",
+              "proposed_value": "5010",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "amortization_months",
+              "proposed_value": 12,
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        },
+        {
+          "line_number": 2,
+          "description": "",
+          "amount": 3600.0,
+          "category_hint": "software",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5010",
+              "corrected_value": "5020",
+              "reason": "Monthly data science suite is cloud-hosted, should use cloud expense account"
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "VP_FINANCE",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "605f1fb1-0740-4861-bab4-aa3a054d3b95",
+      "invoice_id": "INV-110",
+      "vendor": "GrowthLabs Partners",
+      "invoice_total": 6200.0,
+      "invoice_date": "2026-02-18",
+      "po_number": "PO-2026-210",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 4200.0,
+          "category_hint": "professional_services",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5040",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        },
+        {
+          "line_number": 2,
+          "description": "",
+          "amount": 2000.0,
+          "category_hint": "legal",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5030",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "DEPT_MANAGER",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    }
+  ]
+}

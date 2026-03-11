@@ -81,6 +81,14 @@ def _print_result(result: dict) -> None:
             for n in notes:
                 print(f"    • {n}")
 
+    elif status == "DRY_RUN":
+        routing = result.get("routing", {})
+        print(f"  Outcome:      {result.get('outcome', 'unknown')}")
+        print(f"  Applied rule: {result.get('applied_rule', 'unknown')}")
+        print(f"  Total:        ${routing.get('total_amount', 'unknown')}")
+        print(f"  Department:   {routing.get('department', 'N/A')}")
+        print(f"  Reasoning:    {result.get('reasoning', '')}")
+
     elif status == "HALTED":
         print(f"  Stage:  {result.get('stage', '')}")
         print(f"  Reason: {result.get('reason', '')}")
@@ -92,12 +100,13 @@ def _print_result(result: dict) -> None:
     _print_divider()
 
 
-def run_pipeline_cli(invoice_input: str | dict) -> dict:
+def run_pipeline_cli(invoice_input: str | dict, dry_run: bool = False) -> dict:
     """
     Run the full pipeline and handle all HALT interactions interactively.
 
     Args:
         invoice_input: Path to invoice JSON file (str) or raw invoice dict.
+        dry_run:       If True, stop after Approval Routing (skip Posting).
 
     Returns:
         Final orchestrator result dict.
@@ -109,8 +118,8 @@ def run_pipeline_cli(invoice_input: str | dict) -> dict:
     db.create_tables()
     orch = Orchestrator(db)
 
-    print(f"\n  Starting pipeline run…")
-    result = orch.run(invoice_input)
+    print(f"\n  Starting pipeline run{'  [DRY RUN]' if dry_run else ''}…")
+    result = orch.run(invoice_input, dry_run=dry_run)
 
     # Loop to handle sequential HALTs (e.g., approval then ingestion correction)
     while result.get("status") == "HALTED":
@@ -143,13 +152,26 @@ def run_pipeline_cli(invoice_input: str | dict) -> dict:
 
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        print("Usage: python3 pipeline/cli.py <invoice_json_path>", file=sys.stderr)
+    # Support both:
+    #   python3 pipeline/cli.py <path>
+    #   python -m pipeline.cli run --input <path>
+    args = sys.argv[1:]
+    dry_run = "--dry-run" in args
+    args = [a for a in args if a != "--dry-run"]
+
+    if args and args[0] == "run":
+        try:
+            idx = args.index("--input")
+            invoice_path = args[idx + 1]
+        except (ValueError, IndexError):
+            print("Usage: python -m pipeline.cli run --input <invoice_json_path> [--dry-run]", file=sys.stderr)
+            sys.exit(1)
+    elif args:
+        invoice_path = args[0]
+    else:
+        print("Usage: python3 pipeline/cli.py <invoice_json_path> [--dry-run]", file=sys.stderr)
         sys.exit(1)
 
-    invoice_path = sys.argv[1]
-
-    # Support raw JSON on command line or a file path
     if invoice_path.endswith(".json"):
         try:
             with open(invoice_path) as f:
@@ -160,7 +182,16 @@ def main() -> None:
     else:
         invoice_input = invoice_path   # let orchestrator handle file path
 
-    run_pipeline_cli(invoice_input)
+    if isinstance(invoice_input, list):
+        print(f"\n  Found {len(invoice_input)} invoice(s) — running in batch mode.")
+        for i, item in enumerate(invoice_input, 1):
+            # Support labeled_invoices.json format: {"raw_input": {...}, "ground_truth": {...}}
+            invoice = item.get("raw_input", item) if isinstance(item, dict) else item
+            invoice_id = invoice.get("invoice_id", f"#{i}") if isinstance(invoice, dict) else f"#{i}"
+            print(f"\n  [{i}/{len(invoice_input)}] Invoice: {invoice_id}")
+            run_pipeline_cli(invoice, dry_run=dry_run)
+    else:
+        run_pipeline_cli(invoice_input, dry_run=dry_run)
 
 
 if __name__ == "__main__":

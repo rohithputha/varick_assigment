@@ -1,0 +1,524 @@
+{
+  "batch_id": "batch_20260311_203318",
+  "generated_at": "2026-03-11T20:33:18.741490+00:00",
+  "instructions": "For each line: leave corrected_value as null if the proposal is correct. Fill in corrected_value (and optional reason) where you disagree.",
+  "proposals": [
+    {
+      "proposal_id": "8acea1c7-211a-4e69-919f-65d1f0e3d178",
+      "invoice_id": "UL-1",
+      "vendor": "DataSync Pro",
+      "invoice_total": 24000.0,
+      "invoice_date": "2026-02-15",
+      "po_number": "PO-2026-077",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 18000.0,
+          "category_hint": "software",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "1310",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "PREPAID",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "base_expense_account",
+              "proposed_value": "5010",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "amortization_months",
+              "proposed_value": 12,
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        },
+        {
+          "line_number": 2,
+          "description": "",
+          "amount": 6000.0,
+          "category_hint": "professional_services",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5040",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "VP_FINANCE",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "38fe4934-4c8d-4055-b226-99663d65def9",
+      "invoice_id": "UL-2",
+      "vendor": "WeWork",
+      "invoice_total": 4500.0,
+      "invoice_date": "2026-03-01",
+      "po_number": "PO-2026-081",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 4500.0,
+          "category_hint": "facilities",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5070",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "DEPT_MANAGER",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "32acc377-7a89-4d4f-ac47-0686b23aff7b",
+      "invoice_id": "UL-3",
+      "vendor": "TalentBridge Partners",
+      "invoice_total": 25000.0,
+      "invoice_date": "2026-02-28",
+      "po_number": "PO-2026-090",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 25000.0,
+          "category_hint": "professional_services",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5040",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "VP_FINANCE",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "3bdfabfe-fdd2-4b22-bc9a-c27605977f7d",
+      "invoice_id": "UL-4",
+      "vendor": "Global Tech Summit",
+      "invoice_total": 6800.0,
+      "invoice_date": "2026-03-05",
+      "po_number": "PO-2026-085",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 3600.0,
+          "category_hint": "training",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5080",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        },
+        {
+          "line_number": 2,
+          "description": "",
+          "amount": 3200.0,
+          "category_hint": "travel",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5060",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "DEPT_MANAGER",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "9e73482f-942b-436d-bc3f-3bc696e317d9",
+      "invoice_id": "UL-5",
+      "vendor": "RenewTech",
+      "invoice_total": 4500.0,
+      "invoice_date": "2026-03-10",
+      "po_number": "PO-2026-092",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 4500.0,
+          "category_hint": "equipment",
+          "confidence": 0.95,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5110",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "DEPT_MANAGER",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "a582e54b-bbcd-4a1f-99cb-f9a39f48b8fc",
+      "invoice_id": "UL-6",
+      "vendor": "Cloudflare",
+      "invoice_total": 500.0,
+      "invoice_date": "2026-01-10",
+      "po_number": "PO-2026-055",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 200.0,
+          "category_hint": "telecom",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5090",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        },
+        {
+          "line_number": 2,
+          "description": "",
+          "amount": 300.0,
+          "category_hint": "cloud",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "1300",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "PREPAID",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "base_expense_account",
+              "proposed_value": "5020",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "amortization_months",
+              "proposed_value": 13,
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "AUTO_APPROVE",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "84970fd6-58a6-48a2-84e3-ff60e5d9e84f",
+      "invoice_id": "UL-7",
+      "vendor": "Sarah Chen Design LLC",
+      "invoice_total": 8000.0,
+      "invoice_date": "2026-02-20",
+      "po_number": "PO-2026-088",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 8000.0,
+          "category_hint": "professional_services",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5040",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "DEPT_MANAGER",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "72e68f34-d91f-4797-bdfd-cf8218417465",
+      "invoice_id": "UL-8",
+      "vendor": "ModernSpace Builders",
+      "invoice_total": 12000.0,
+      "invoice_date": "2026-03-15",
+      "po_number": "PO-2026-095",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 12000.0,
+          "category_hint": "facilities",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5070",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "VP_FINANCE",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "f0a55946-200a-4b02-8313-93d1660dc7f7",
+      "invoice_id": "UL-9",
+      "vendor": "Twilio Inc.",
+      "invoice_total": 2300.0,
+      "invoice_date": "2026-02-28",
+      "po_number": "PO-2026-060",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 2300.0,
+          "category_hint": "telecom",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5090",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "DEPT_MANAGER",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    },
+    {
+      "proposal_id": "55e0782b-573d-4078-a6bd-6aa2b55e7ed6",
+      "invoice_id": "UL-10",
+      "vendor": "Fresh Bites Catering",
+      "invoice_total": 1500.0,
+      "invoice_date": "2026-03-08",
+      "po_number": "PO-2026-098",
+      "po_status": "MATCHED",
+      "flags": [],
+      "lines": [
+        {
+          "line_number": 1,
+          "description": "",
+          "amount": 1500.0,
+          "category_hint": "physical_goods",
+          "confidence": 1.0,
+          "corrections": [
+            {
+              "field": "gl_account",
+              "proposed_value": "5000",
+              "corrected_value": null,
+              "reason": null
+            },
+            {
+              "field": "treatment",
+              "proposed_value": "EXPENSE",
+              "corrected_value": null,
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "approval": {
+        "corrections": [
+          {
+            "field": "approval_outcome",
+            "proposed_value": "AUTO_APPROVE",
+            "corrected_value": null,
+            "reason": null
+          }
+        ]
+      }
+    }
+  ]
+}
